@@ -33,7 +33,10 @@
     ```
     npx create-react-app react-frontend
     ```
-
+### Clone the git repository
+  ```
+  git clone https://github.com/arpithaar/genstudio-for-perf-mktng-engg-test.git
+  ```
 
 ### Project installation
 
