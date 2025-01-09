@@ -1,5 +1,11 @@
 # genstudio-for-perf-mktng-engg-test
 
+### Logic to covert integer to roman
+1. Divide the given number into digits at different places like one’s, two’s, hundred’s or thousand’s.
+2. Starting from the thousand's place, print the corresponding roman value. For example, if the digit at thousand’s place is 3 then print the roman equivalent of 3000.
+3. Repeat the second step until we reach one’s place.
+
+
 ### Pre-requisites
 
 * Java 17
@@ -8,7 +14,7 @@
 
 ### Framework Dependencies
 * Using Spring Boot 3 as the Java backend to create the REST endpoint as it comes with embedded Tomcat server
-* Spring Boot 3 is only supported from Java 17 to support optimization benefits
+* Spring Boot 3 is only supported with Java 17 onwards to support optimization benefits
 * Added Spring Web dependency in pom.xml for creating REST endpoints
 ```
     <dependency>
@@ -23,7 +29,7 @@
 
 ### Project creation process
 * Created spring boot project using Spring Initializr https://start.spring.io/
-* Created a react app using the command
+* Bootstrapped a react app using the command
     ```
     npx create-react-app react-frontend
     ```
@@ -75,3 +81,9 @@
 ![img_2.png](img_2.png)
 * Dark Mode:
 ![img_3.png](img_3.png)
+
+* TODO:
+  * Logging
+  * Test cases
+  * Code clean up
+  * Try docker ?
