@@ -46,6 +46,11 @@ class RomanNumeralConversionController {
 	String[] i = { "",  "I",  "II",  "III",  "IV",
 			"V", "VI", "VII", "VIII", "IX" };
 
+	/**
+	 *
+	 * @param query
+	 * @return json response containing input and output
+	 */
 	@GetMapping("/romannumeral")
 	public ResponseEntity<RomanNumeralResponse> convertToRoman(@RequestParam int query) {
 		String thousands = m[query / 1000];

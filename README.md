@@ -1,6 +1,6 @@
 # genstudio-for-perf-mktng-engg-test
 
-### Logic to covert integer to roman
+### Logic to convert integer to roman
 1. Divide the given number into digits at different places like one’s, two’s, hundred’s or thousand’s.
 2. Starting from the thousand's place, print the corresponding roman value. For example, if the digit at thousand’s place is 3 then print the roman equivalent of 3000.
 3. Repeat the second step until we reach one’s place.
