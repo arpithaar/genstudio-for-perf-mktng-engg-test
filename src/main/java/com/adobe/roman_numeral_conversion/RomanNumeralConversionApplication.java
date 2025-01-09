@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * Spring boot application to convert integer to its roman equivalent
+ */
 @SpringBootApplication
 @Configuration
 public class RomanNumeralConversionApplication implements WebMvcConfigurer{
@@ -18,6 +21,11 @@ public class RomanNumeralConversionApplication implements WebMvcConfigurer{
 		SpringApplication.run(RomanNumeralConversionApplication.class, args);
 	}
 
+	/**
+	 * Enabled CORS to avoid browser blocking requests b/w different
+	 * origins by default since react app is running on a different port
+	 * @param registry
+	 */
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
