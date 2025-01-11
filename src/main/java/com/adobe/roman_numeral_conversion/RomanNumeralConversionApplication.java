@@ -1,6 +1,8 @@
 package com.adobe.roman_numeral_conversion;
 
 import io.micrometer.common.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +23,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class RomanNumeralConversionApplication implements WebMvcConfigurer{
 
+	private static final Logger logger = LoggerFactory.getLogger(RomanNumeralConversionApplication.class);
+
 	public static void main(String[] args) {
+
+		logger.debug("Initializing RomanNumeralConversionApplication");
 		SpringApplication.run(RomanNumeralConversionApplication.class, args);
 	}
 
@@ -33,7 +39,7 @@ public class RomanNumeralConversionApplication implements WebMvcConfigurer{
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
 				.allowedOrigins("http://localhost:3000")  // Allow React app
-				.allowedMethods("GET", "POST", "PUT", "DELETE");
+				.allowedMethods("GET");
 	}
 
 }
@@ -43,6 +49,8 @@ public class RomanNumeralConversionApplication implements WebMvcConfigurer{
  */
 @RestController
 class RomanNumeralConversionController {
+
+	private static final Logger logger = LoggerFactory.getLogger(RomanNumeralConversionController.class);
 
 	// Storing roman values of digits from 0-9 when placed at different places
 	String[] m = { "", "M", "MM", "MMM" };
@@ -60,9 +68,11 @@ class RomanNumeralConversionController {
 	 */
 	@GetMapping("/romannumeral")
 	public ResponseEntity<Object> convertToRoman(@RequestParam int query) {
+		logger.debug("Invoked endpoint /romannumeral for the input {}", query);
 		String errorMessage = "";
 		if(query < 1 || query > 3999){
 			errorMessage = "Invalid! Input must be between 1 and 3999";
+			logger.error("Input {} ::" + errorMessage, query);
 		}else if (!String.valueOf(query).matches("^[0-9]+$")) {
 			errorMessage="Invalid! Input must be a whole number";
 		}
@@ -74,13 +84,19 @@ class RomanNumeralConversionController {
 		String tens = x[(query % 100) / 10];
 		String ones = i[query % 10];
 		String roman =  thousands + hundreds + tens + ones;
+		logger.info("Roman numeral for the input {} is {}", new Object[]{query, roman});
 		RomanNumeralResponse romanNumeralResponse =  new RomanNumeralResponse(String.valueOf(query),roman);
 		return new ResponseEntity<>(romanNumeralResponse, HttpStatus.OK);
 	}
 
 	@ExceptionHandler
 	public ResponseEntity<String> handleException(Exception e) {
-		return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+		logger.error("Exception" ,e);
+		String errorMessage = e.getMessage();
+		if(e.getCause() instanceof NumberFormatException){
+			errorMessage = "Input must be a whole number";
+		}
+		return ResponseEntity.badRequest().body("Error: " + errorMessage);
 	}
 }
 
