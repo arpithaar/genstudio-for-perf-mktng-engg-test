@@ -72,8 +72,7 @@
 * Access the REST endpoint in the following format - http://localhost:8080/romannumeral?query=3432
 * Navigate to the folder react-frontend in a different terminal. Install react libraries using the below commands. Before that, ensure npm is installed on your system
   ```
-  npm install axios
-  npm install @adobe/react-spectrum
+  npm install
   ```
 * Run the react frontend using the below command
   ```
