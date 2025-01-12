@@ -8,10 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -60,6 +59,14 @@ class RomanNumeralConversionController {
 			"L", "LX", "LXX", "LXXX", "XC" };
 	String[] i = { "",  "I",  "II",  "III",  "IV",
 			"V", "VI", "VII", "VIII", "IX" };
+
+	/*@GetMapping("/")
+	public ResponseEntity<Void> redirectToRoman() {
+		URI redirectUrl = URI.create("/romannumeral");  // Internal URL
+		return ResponseEntity.status(HttpStatus.FOUND)  // HTTP 302 status (temporary redirect)
+				.location(redirectUrl)  // Set the Location header
+				.build();
+	}*/
 
 	/**
 	 *
@@ -128,4 +135,14 @@ class RomanNumeralResponse{
 		this.output = output;
 	}
 
+}
+
+@Controller
+class RedirectController {
+
+	@RequestMapping("/")
+	public String redirect(Model model) {
+		model.addAttribute("message", "You will be redirected in 5 seconds...");
+		return "redirectMessage";  // The view resolver maps this to "welcome.html" or "welcome.jsp"
+	}
 }
