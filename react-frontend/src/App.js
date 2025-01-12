@@ -16,6 +16,12 @@ function App() {
         if (value === '') {
             setErrorMessage('This field is required.');
             setIsValid(false);
+        } else if (isNaN(value) || value.trim() !== parseFloat(value).toString()) {
+            setErrorMessage('Please enter a valid integer');
+            setIsValid(false);
+        } else if(value % 1 !== 0){
+            setErrorMessage('Please enter a whole number');
+            setIsValid(false);
         } else if (value < 1 || value > 3999) {
             setErrorMessage('Value must be between 1 and 3999.');
             setIsValid(false);
@@ -24,6 +30,7 @@ function App() {
             setIsValid(true);
         }
     };
+
     // Toggle between themes
     const toggleTheme = () => {
         setIsDarkMode((prev) => !prev);
@@ -36,11 +43,12 @@ function App() {
     };
     const convertToRoman = async (event) => {
         event.preventDefault();
-        if (isNaN(value) || value === "") {
-            setErrorMessage('Please enter a valid integer');
+        if (value === "") {
+            setErrorMessage('Input field is mandatory');
             setIsValid(false);
             return;
         }
+
         axios.get(`http://localhost:8080/romannumeral?query=${value}`)  // Java backend endpoint
             .then(response => {
                 setSuccessMessage('Roman Numeral : '+response.data.output);  // Set the response message
@@ -64,7 +72,6 @@ function App() {
                         <TextField label="Enter a number"
                                    value={value}
                                    onChange={handleChange}
-                                   type="number"
                                    isRequired
                                    validationState={isValid ? 'valid' : 'invalid'}
                                    errorMessage={errorMessage}/>

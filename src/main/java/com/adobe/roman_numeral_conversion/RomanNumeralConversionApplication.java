@@ -60,14 +60,6 @@ class RomanNumeralConversionController {
 	String[] i = { "",  "I",  "II",  "III",  "IV",
 			"V", "VI", "VII", "VIII", "IX" };
 
-	/*@GetMapping("/")
-	public ResponseEntity<Void> redirectToRoman() {
-		URI redirectUrl = URI.create("/romannumeral");  // Internal URL
-		return ResponseEntity.status(HttpStatus.FOUND)  // HTTP 302 status (temporary redirect)
-				.location(redirectUrl)  // Set the Location header
-				.build();
-	}*/
-
 	/**
 	 *
 	 * @param query Input
@@ -80,8 +72,6 @@ class RomanNumeralConversionController {
 		if(query < 1 || query > 3999){
 			errorMessage = "Invalid! Input must be between 1 and 3999";
 			logger.error("Input {} ::" + errorMessage, query);
-		}else if (!String.valueOf(query).matches("^[0-9]+$")) {
-			errorMessage="Invalid! Input must be a whole number";
 		}
 		if(StringUtils.isNotEmpty(errorMessage)){
 			return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
