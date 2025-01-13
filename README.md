@@ -157,6 +157,9 @@ know the parent path beforehand
 * Set up Datasource as Prometheus in Grafana . Follow the steps in the below video to configure a basic 
 dashboard for the spring boot app
 [Grafana_demo.mov](Grafana_demo.mov)
+* React app performance will be logged in browser console. Check the browser console for the metrics around core
+web vitals
+![web_vitals_react.png](web_vitals_react.png)
 
 
 ### Framework Dependencies
@@ -209,6 +212,8 @@ configuration is enabled in prometheus.yml file
     ```
 * Using Axios in React to invoke http requests to Spring Boot application
 * React Spectrum libraries to leverage Adobe's design system
+* Added Web Vitals to monitor frontend performance. Their events can be tracked in Google Analytics dashboard to monitor
+the health of a React app
 
 
 ### Logic to convert integer to roman
