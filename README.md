@@ -140,7 +140,7 @@ know the parent path beforehand
 * Navigate to http://localhost:9090/targets to check the target health
 * This will display the prometheus endpoint of Spring Boot app http://localhost:8080/actuator/prometheus that is being scraped
 ![Prometheus_UI.png](Prometheus_UI.png)
-* Install Grafana using the below command
+* Install Grafana for visualization using the below command
   ```
   brew install grafana
   ```
@@ -153,8 +153,11 @@ know the parent path beforehand
   brew services start grafana
   ```
 * This will start Grafana in port 3000. Should be accessible at http://localhost:3000 in your web browser. 
-* Username/password = admin/admin . You can skip resetting password for now when it prompts
-* TODO : Set up Datasource as Prometheus in Grafana
+* Username/password = admin/admin . You can skip resetting password for now when it prompts 
+* Set up Datasource as Prometheus in Grafana . Follow the steps in the below video to configure a basic 
+dashboard for the spring boot app
+[Grafana_demo.mov](Grafana_demo.mov)
+
 
 ### Framework Dependencies
 * Using Spring Boot 3 as the Java backend to create the REST endpoint as it comes with embedded Tomcat server
