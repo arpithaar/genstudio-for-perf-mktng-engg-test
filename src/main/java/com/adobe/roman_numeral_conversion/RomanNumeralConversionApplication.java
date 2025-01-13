@@ -37,7 +37,7 @@ public class RomanNumeralConversionApplication implements WebMvcConfigurer{
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
-				.allowedOrigins("http://localhost:3000")  // Allow React app
+				.allowedOrigins("http://localhost:3002")  // Allow React app
 				.allowedMethods("GET");
 	}
 
