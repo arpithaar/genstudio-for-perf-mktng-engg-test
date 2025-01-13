@@ -126,13 +126,3 @@ class RomanNumeralResponse{
 	}
 
 }
-
-@Controller
-class RedirectController {
-
-	@RequestMapping("/")
-	public String redirect(Model model) {
-		model.addAttribute("message", "You will be redirected in 5 seconds...");
-		return "redirectMessage";  // The view resolver maps this to "welcome.html" or "welcome.jsp"
-	}
-}

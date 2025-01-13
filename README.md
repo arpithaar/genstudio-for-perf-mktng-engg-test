@@ -42,7 +42,7 @@ Validate by executing the following commands
 
 ### Project installation
 
-* Navigate to the folder genstudio-for-perf-mktng-engg-test from a terminal and execute the below command to run the Spring boot application
+* Navigate to the folder genstudio-for-perf-mktng-engg-test from a terminal and execute the below commands to run the Spring boot application
     ```
   mvn clean install
   mvn spring-boot:run
@@ -91,7 +91,7 @@ Validate by executing the following commands
         <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 ```
-* Added ThymeLeaf dependency for dynamic templating in HTML
+* Added ThymeLeaf dependency for embedding dynamic data in HTML
   ```
     <dependency>
 			<groupId>org.springframework.boot</groupId>
