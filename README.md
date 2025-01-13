@@ -72,13 +72,89 @@ Validate by executing the following commands
 * Once the above command is successful, node_modules folder will be created for all the downloaded libraries.
 * Run the react frontend using the below command
   ```
-  npm start
+  PORT=3002 npm start
   ```
-* The frontend application will now be accessible via http://localhost:3000/
+* The frontend application will now be accessible via http://localhost:3002/
 * Light Theme:
   ![light_theme.png](light_theme.png)
 * Dark Theme:
   ![dark_theme.png](dark_theme.png)
+
+### Monitoring
+
+* View health status of the Spring Boot app by navigating to http://localhost:8080/actuator/health
+* View metrics such as request count, active threads,memory usage,etc by navigating to http://localhost:8080/actuator/metrics
+Note : This endpoint gives back all names of the metrics in response. To access specific metric, append the name in the above url.
+Example : http://localhost:8080/actuator/metrics/http.server.requests.active
+
+
+* Let's set up Prometheus to collect metrics from the Spring Boot application
+* Install Homebrew using the following command in a terminal
+  ```
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ```
+* Use the below command to ensure its successfully installed. It will display the version
+  ```
+  brew -v
+  ```
+* Now install prometheus
+  ```
+  brew install prometheus
+  ```
+* Verify the installation
+  ```
+  prometheus --version
+  ```
+* Run Prometheus in the background using the below command
+  ```
+  brew services start prometheus
+  ```
+* Prometheus will start on port 9090. To access its UI, type http://localhost:9090 in your web browser
+* Stop the service
+  ```
+  brew services stop prometheus
+  ```
+* Find prometheus.yml to update scrape configs. For Macs on ARM architecture , the yaml file will be found under /opt/homebrew/etc
+if installed via homebrew. If not found here, search for the file using the command :
+  ```
+  find / -name prometheus.yml
+  ```
+Note: If above command is executed, it will take a while to execute and find the location. Narrow down the search if you atleast
+know the parent path beforehand
+
+* Once the file is found, navigate to the folder and edit the file to update scrape_configs. Make sure the file is saved
+  ```
+  global:
+  scrape_interval: 15s
+
+  scrape_configs:
+  - job_name: 'spring-boot-actuator'
+    metrics_path: '/actuator/prometheus'  # Override the default /metrics path
+    static_configs:
+    - targets: ['localhost:8080']
+    ```
+* Start Prometheus again
+  ```
+  brew services start prometheus
+  ```
+* Navigate to http://localhost:9090/targets to check the target health
+* This will display the prometheus endpoint of Spring Boot app http://localhost:8080/actuator/prometheus that is being scraped
+![Prometheus_UI.png](Prometheus_UI.png)
+* Install Grafana using the below command
+  ```
+  brew install grafana
+  ```
+* To ensure successful installation, run the below command to see its version
+  ```
+  grafana -v
+  ```
+* Start the service in the background
+  ```
+  brew services start grafana
+  ```
+* This will start Grafana in port 3000. Should be accessible at http://localhost:3000 in your web browser. 
+* Username/password = admin/admin . You can skip resetting password for now when it prompts
+* TODO : Set up Datasource as Prometheus in Grafana
 
 ### Framework Dependencies
 * Using Spring Boot 3 as the Java backend to create the REST endpoint as it comes with embedded Tomcat server
@@ -98,8 +174,31 @@ Validate by executing the following commands
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
   ```
-  
-* Configured Logback in Spring. Configuration file placed at src/main/resources/logback-spring.xml
+* Configured Logback in Spring. Configuration file placed at src/main/resources/logback-spring.xml  
+* Added Actuator dependency to enable built-in support for monitoring in Spring Boot
+  ```
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+  </dependency>
+  ```
+* Added Micrometer dependency to integrate it with Spring Boot Actuator to enable support for Prometheus .
+  ```
+  <dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-registry-prometheus</artifactId>
+  </dependency>
+  ```
+* This will expose http://localhost:8080/actuator/prometheus which is configured to be scraped by Prometheus as the below
+configuration is enabled in prometheus.yml file
+  ```
+    scrape_configs:
+  - job_name: 'spring-boot-actuator'
+    metrics_path: '/actuator/prometheus'  # Override the default /metrics path
+    static_configs:
+    - targets: ['localhost:8080']  
+  ```
+
 * React App for the frontend
 * Bootstrapped a react app using the command
     ```

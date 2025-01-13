@@ -12,7 +12,7 @@
 	<artifactId>genstudio-for-perf-mktng-engg-test</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>genstudio-for-perf-mktng-engg-test</name>
-	<description>GenStudio project using Spring Boot</description>
+	<description>GenStudio Test project using Spring Boot</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -30,6 +30,18 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+
+		<!-- Micrometer Prometheus registry for metrics collection -->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+		</dependency>
+
+		<!-- Spring Boot Actuator for application management -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
