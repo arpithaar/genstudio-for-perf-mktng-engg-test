@@ -49,11 +49,11 @@ Validate by executing the following commands
     ```
 
 * Below logs can be seen in the terminal
-![spring_boot_run_logs.png](spring_boot_run_logs.png)
+![spring_boot_run_logs.png](misc%2Fspring_boot_run_logs.png)
 
 * Above command will initialize Tomcat server on port 8080 and deploy the spring boot application
 * Navigate to http://localhost:8080/ to ensure server is running
-  ![localhost_8080.png](localhost_8080.png)
+  ![localhost_8080.png](misc%2Flocalhost_8080.png)
 * Access the REST endpoint in the following format - http://localhost:8080/romannumeral?query=3432
 
 * Navigate to the folder react-frontend in a different terminal. Install npm using the following command
@@ -76,9 +76,9 @@ Validate by executing the following commands
   ```
 * The frontend application will now be accessible via http://localhost:3002/
 * Light Theme:
-  ![light_theme.png](light_theme.png)
+  ![light_theme.png](misc%2Flight_theme.png)
 * Dark Theme:
-  ![dark_theme.png](dark_theme.png)
+  ![dark_theme.png](misc%2Fdark_theme.png)
 
 ### Monitoring
 
@@ -122,24 +122,16 @@ if installed via homebrew. If not found here, search for the file using the comm
 Note: If above command is executed, it will take a while to execute and find the location. Narrow down the search if you atleast
 know the parent path beforehand
 
-* Once the file is found, navigate to the folder and edit the file to update scrape_configs. Make sure the file is saved
-  ```
-  global:
-  scrape_interval: 15s
+* Once the file is found, open the file and replace its content with the content from
+[prometheus.yml](misc%2Fprometheus.yml). Or, just replace the file with [prometheus.yml](misc%2Fprometheus.yml) . Make sure the file is saved
 
-  scrape_configs:
-  - job_name: 'spring-boot-actuator'
-    metrics_path: '/actuator/prometheus'  # Override the default /metrics path
-    static_configs:
-    - targets: ['localhost:8080']
-    ```
 * Start Prometheus again
   ```
   brew services start prometheus
   ```
 * Navigate to http://localhost:9090/targets to check the target health
 * This will display the prometheus endpoint of Spring Boot app http://localhost:8080/actuator/prometheus that is being scraped
-![Prometheus_UI.png](Prometheus_UI.png)
+![Prometheus_UI.png](misc%2FPrometheus_UI.png)
 * Install Grafana for visualization using the below command
   ```
   brew install grafana
@@ -156,10 +148,10 @@ know the parent path beforehand
 * Username/password = admin/admin . You can skip resetting password for now when it prompts 
 * Set up Datasource as Prometheus in Grafana . Follow the steps in the below video to configure a basic 
 dashboard for the spring boot app
-[Grafana_demo.mov](Grafana_demo.mov)
+[Grafana_demo.mov](misc%2FGrafana_demo.mov)
 * React app performance will be logged in browser console. Check the browser console for the metrics around core
 web vitals
-![web_vitals_react.png](web_vitals_react.png)
+![web_vitals_react.png](misc%2Fweb_vitals_react.png)
 
 
 ### Framework Dependencies
@@ -180,7 +172,8 @@ web vitals
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
   ```
-* Configured Logback in Spring. Configuration file placed at src/main/resources/logback-spring.xml  
+* Configured Logback in Spring. Configuration file placed at src/main/resources/logback-spring.xml. 
+* Log files are rotated hourly basis and will be available within logs folder
 * Added Actuator dependency to enable built-in support for monitoring in Spring Boot
   ```
   <dependency>
