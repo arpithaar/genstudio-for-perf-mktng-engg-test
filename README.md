@@ -172,6 +172,14 @@ web vitals
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
   ```
+* Added spring-boot-starter-test dependency for implementing Spring Boot Tests
+  ```
+    <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+  ```
 * Configured Logback in Spring. Configuration file placed at src/main/resources/logback-spring.xml. 
 * Log files are rotated hourly basis and will be available within logs folder
 * Added Actuator dependency to enable built-in support for monitoring in Spring Boot
